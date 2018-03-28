@@ -100,47 +100,19 @@
                     <div class="active item">
                         <section class="site-section site-section-light site-section-top themed-background-fire">
                             <div class="container">
-                                <h1 class="text-center animation-slideDown hidden-xs"><strong>A complete web solution for your awesome project</strong></h1>
-                                <h2 class="text-center animation-slideUp push hidden-xs">Bring your project to life months sooner</h2>
-                                <p class="text-center animation-fadeIn">
-                                    <img src="img/placeholders/screenshots/kapaak.jpg" alt="Promo Image 1">
-                                </p>
+                                <div>
+                                    <h3>Testing firebase</h3>
+                                        <input id="testinput" type="text">
+                                        <input id="testpassword" type="password">
+                                        <button type="button" class="btn btn-primary" onclick="testsubmit()">Send</button>
+                                        <button type="button" class="btn btn-primary" onclick="getValuesFromDatabase()">GET VALUES</button>
+                                        <button type="button" class="btn btn-primary" onclick="deleteMenus()">Delete</button>
+
+                                </div>
                             </div>
                         </section>
                     </div>
-                    <div class="item">
-                        <section class="site-section site-section-light site-section-top themed-background-fire">
-                            <div class="container">
-                                <h1 class="text-center animation-fadeIn360 hidden-xs"><strong>Featuring a Powerful and Flexible layout</strong></h1>
-                                <h2 class="text-center animation-fadeIn360 push hidden-xs">Letting you focus on creating your project</h2>
-                                <p class="text-center animation-fadeInLeft">
-                                    <img src="img/placeholders/screenshots/restaurantperson.jpg" alt="Promo Image 2">
-                                </p>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="item">
-                        <section class="site-section site-section-light site-section-top themed-background-fire">
-                            <div class="container">
-                                <h1 class="text-center animation-hatch hidden-xs"><strong>Fully Responsive and Retina Ready</strong></h1>
-                                <h2 class="text-center animation-hatch push hidden-xs">The UI will look great and crisp</h2>
-                                <p class="text-center animation-hatch">
-                                    <img src="img/placeholders/screenshots/promo_mobile.png" alt="Promo Image 3">
-                                </p>
-                            </div>
-                        </section>
-                    </div>
-                    <div class="item">
-                        <section class="site-section site-section-light site-section-top themed-background-fire">
-                            <div class="container">
-                                <h1 class="text-center animation-fadeInLeft hidden-xs"><strong>Tons of features are designed &amp; waiting for you</strong></h1>
-                                <h2 class="text-center animation-fadeInRight push hidden-xs">Everything you need for your project</h2>
-                                <p class="text-center animation-fadeIn360">
-                                    <img src="img/placeholders/screenshots/promo_tablet.png" alt="Promo Image 4">
-                                </p>
-                            </div>
-                        </section>
-                    </div>
+
                 </div>
                 <!-- END Wrapper for slides -->
 
@@ -320,11 +292,56 @@
 
         <!-- Scroll to top link, initialized in js/app.js - scrollToTop() -->
         <a href="#" id="to-top"><i class="fa fa-angle-up">UP</i></a>
-
+        <script src="https://www.gstatic.com/firebasejs/4.12.0/firebase.js"></script>
         <!-- jQuery, Bootstrap.js, jQuery plugins and Custom JS code -->
         <script src="js/vendor/jquery.min.js"></script>
         <script src="js/vendor/bootstrap.min.js"></script>
         <script src="js/plugins.js"></script>
         <script src="js/app.js"></script>
+        <script src="js/md5core.js"></script>
+        <script src="js/md5.js"></script>
+
+        <script>
+            // Initialize Firebase
+            var config = {
+                apiKey: "AIzaSyA9EBTYVW_YxKPpU-vXdz4mG19RkoOjTrk",
+                authDomain: "finalproject-5cdfc.firebaseapp.com",
+                databaseURL: "https://finalproject-5cdfc.firebaseio.com",
+                projectId: "finalproject-5cdfc",
+                storageBucket: "finalproject-5cdfc.appspot.com",
+                messagingSenderId: "322088562064"
+            };
+            firebase.initializeApp(config);
+            var firebaseReference = firebase.database();
+            function testsubmit() {
+                // firebaseReference.child("Test_key").set("Test_value");
+                var testInput = $("#testinput").val();
+                var testPassword = $("#testpassword").val();
+                testPassword = CryptoJS.MD5(testPassword);
+                window.alert("Success");
+                firebaseReference.ref("restorants/").set({
+                    "restorants": [
+                        "cin ali",
+                        "pidecim",
+                        "gozde pide"
+                    ]
+                });
+            }
+            function getValuesFromDatabase() {
+                var dataReference = firebaseReference.ref("users/");
+                dataReference.on("value", function(response) {
+                    console.log(response.val());
+                });
+            }
+            function deleteMenus() {
+                var newPostKey = firebase.database().ref().child('users').push().key;
+                var update = {};
+                update["/users/testing"] = "updatemyvalues";
+                firebaseReference.ref().update(update);
+            }
+
+        </script>
+        <script src="js/firebasetraining.js"></script>
+
     </body>
 </html>
