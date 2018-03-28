@@ -46,7 +46,7 @@ var Login = function() {
     };
 }();
 $(document).ready(function(e) {
-    $('#login-submit-btn').click(function() {
+    $('#login-submit-btn').on('click', function() {
         var sEmail = $('#login-email').val();
 // Checking Empty Fields
         if ($.trim(sEmail).length == 0 || $("#fname").val()=="" || $("#lname").val()=="") {
@@ -112,8 +112,8 @@ function init() {
         }
     }
     else{
-        alert('Please check your email and passwor');
+        alert('Please check your email and password');
     }
 }
 window.onload = init;
-document.getElementById('')
+document.getElementById('');
